@@ -1,9 +1,12 @@
+
+ifee
 <html>
 <head>
   <title>Find your party haus in Berlin!</title>
   <meta charset="utf-8" />
   <!-- CSS -->
   <link rel="stylesheet" href="//cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
+  <link rel="stylesheet" href="/css/leaflet.label.css" />
   <style>
   body {
     padding: 0;
@@ -15,6 +18,8 @@
   </style>
   <!-- JS -->
   <script src="//cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
+  <script src="js/leaflet.label.js"></script>
+
     <base target="_blank">
 </head>
 <body>
@@ -46,6 +51,10 @@
 
     var clandestine = L.marker([52.453102, 13.320439]).addTo(map);
     clandestine.bindPopup("<b>Clandestine</b><br><a href='http://mixology.eu/bars/clandestine-bar/'>Go to article about Clandestine</a>");
+
+    var m = L.marker([52.453102, 13.320439], {draggable:true}).bindLabel('A sweet static label!', { noHide: true })
+    .addTo(map)
+    .showLabel();
 
     // standalone popup
     //var popup = L.popup()
