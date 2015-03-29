@@ -6,6 +6,9 @@
   <!-- CSS -->
   <link rel="stylesheet" href="//cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
   <link rel="stylesheet" href="/css/leaflet.label.css" />
+    <link href='http://fonts.googleapis.com/css?family=Fredoka+One' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Muli' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Mr+Dafoe' rel='stylesheet' type='text/css'>
   <style>
   body {
     padding: 0;
@@ -21,7 +24,7 @@
     }
     #exposeModal{
     margin: 0px;
-    width: 40%; 
+    width: 30%; 
     position: absolute; 
     top: 10px; 
     left: 10px; 
@@ -43,6 +46,8 @@
     flex: 2;
     display: flex;
     flex-direction: column;
+    align-content: center;
+    align-items: center;
     margin: 10px;
     }
     #exposeRow1{
@@ -61,13 +66,29 @@
     margin: none;
     height: 150px;
     flex: 1;
+    font-family: 'Muli', sans-serif;
+    font-size: 20px;
     }
     #exposeStats{
     flex: 2;
     }
+    #statsTable{
+    border-collapse: collapse;
+    border-spacing: 0px;
+    cell-spacing: 0px;
+    cell-padding: 0px;    
+    }
     .statsCells{
     border: solid 2px black;
     height: 100px;
+    font-family: 'Muli', sans-serif;
+    }
+    .statsVal{
+    font-size: 32px;
+    }
+    td{
+    width: 100px;
+    text-align: center;    
     }
     #criteriaModal{
     margin: 0px;
@@ -83,7 +104,8 @@
     align-items: center;
     }
     #criteriaTitle{
-    flex: 1;    
+    flex: 1;
+    font-family: 'Fredoka One', cursive;
     }
     #sortable{
     width: 75%;
@@ -100,6 +122,7 @@
     box-shadow: none;
     padding: 5px 10px 5px;
     margin-bottom: 2px;
+    font-family: 'Fredoka One', cursive;
     }
     .ui-state-placeholder{
     background-color: rgb(252,231,253);
@@ -113,6 +136,7 @@
     text-align: center;
     padding: 0px 5px 0px;
     font-weight: 700;
+    font-family: 'Fredoka One', cursive;
     }
     .indexNum p{
     display: inline;   
@@ -126,6 +150,7 @@
     border: none;
     background-color: rgb(234,37,45);
     flex: 1;
+    font-family: 'Fredoka One', cursive;
     }
 
   </style>
@@ -159,7 +184,7 @@
                             <td class="statsCells">
                                 <table>
                                     <tr>
-                                        <td id="coldRent">000</td>
+                                        <td id="coldRent" class="statsVal">000</td>
                                     </tr>
                                     <tr>
                                         <td>Cold Rent</td>
@@ -169,39 +194,40 @@
                             <td class="statsCells">
                                 <table>
                                     <tr>
-                                        <td id="warmRent">000</td>
+                                        <td id="warmRent" class="statsVal">000</td>
                                     </tr>
                                     <tr>
                                         <td>Warm Rent</td>
                                     </tr>
                                 </table>    
-                            </td>
-                            <td class="statsCells">
-                                <table>
-                                    <tr>
-                                        <td id="space">000</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Space (sq. m)</td>
-                                    </tr>
-                                </table>  
                             </td>  
                           </tr>
                           <tr>
                             <td class="statsCells">
                                 <table>
                                     <tr>
-                                        <td id="buildingFloor">000</td>
+                                        <td id="space" class="statsVal">000</td>
                                     </tr>
                                     <tr>
-                                        <td>Building Floor</td>
+                                        <td>Space</td>
                                     </tr>
-                                </table>   
-                            </td>
+                                </table>  
+                            </td>  
                             <td class="statsCells">
                                 <table>
                                     <tr>
-                                        <td id="numRooms">000</td>
+                                        <td id="buildingFloor" class="statsVal">000</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Floor</td>
+                                    </tr>
+                                </table>   
+                            </td>
+                           <tr> 
+                            <td class="statsCells">
+                                <table>
+                                    <tr>
+                                        <td id="numRooms" class="statsVal">000</td>
                                     </tr>
                                     <tr>
                                         <td># Rooms</td>
@@ -211,13 +237,14 @@
                             <td class="statsCells">
                                 <table>
                                     <tr>
-                                        <td id="numToilets">000</td>
+                                        <td id="numToilets" class="statsVal">000</td>
                                     </tr>
                                     <tr>
                                         <td># Toilets</td>
                                     </tr>
                                 </table>   
                             </td>
+                            </tr>
                           </tr>
                         </table>
                     </div>
