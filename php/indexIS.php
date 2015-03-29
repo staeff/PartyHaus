@@ -39,7 +39,7 @@ $exposeIds = array();
 for($j = 0; $j < count($geoCodesId); $j++){
 	$aParameter = array ( 
 	  'geocodes'=>$geoCodesId[$j], 
-	  'realestatetype' =>'flatshareroom'
+	  'realestatetype' =>'apartmentrent'
 	);
 	$res2 = json_decode($oImmocaster->regionSearch($aParameter));
 	foreach ($res2 as $value) {
@@ -60,7 +60,7 @@ for($j = 0; $j < count($geoCodesId); $j++){
 //Get The needed information for each expose and store the apartments information in an array of apartments
 $exposesArray = array();
 for($k = 0; $k < count($exposeIds); $k++){
-	$aParameter = array ('exposeid'=>$exposeIds[11]); 
+	$aParameter = array ('exposeid'=>$exposeIds[$k]); 
 	$res3 = json_decode($oImmocaster->getExpose($aParameter));
 	//print_r($res3);
 	$exposeInfo = array();
@@ -86,7 +86,11 @@ for($k = 0; $k < count($exposeIds); $k++){
 			}
 
 			$exposeInfo["guestToilet"] = $value->realEstate->guestToilet;
-			$exposeInfo["size"] = $value->realEstate->totalSpace;
+			if(property_exists($value->realEstate, "totalSpace")){
+				$exposeInfo["size"] = $value->realEstate->totalSpace;
+			}else{
+				$exposeInfo["size"] = 999;
+			}
 			$exposeInfo["baseRent"] = $value->realEstate->baseRent;
 			$exposeInfo["totalRent"] = $value->realEstate->totalRent;
 			$exposeInfo["pictures"] = array();
@@ -105,6 +109,6 @@ for($k = 0; $k < count($exposeIds); $k++){
 	}
 }
 
-print_r($exposesArray);
+echo '<pre>'.print_r($exposesArray, TRUE).'</pre>';
 
 ?>
