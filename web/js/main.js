@@ -1,5 +1,7 @@
 $( document ).ready(function() {
 
+        $("#exposeModal").hide();
+
         $(function(){
             var criteriaItem = $('.ui-state-default'),
                 unorderedList = $('#sortable');
@@ -131,7 +133,7 @@ $( document ).ready(function() {
              data: {action: 'getAppartments', east: eastV, west: westV, north: northV, south: southV,
                 bars:barsV,clubs:clubsV,liquor:liquorV,balcony:balconyV,second_toilet:second_toiletV,
                 imbisses:imbissesV,supermarkets:supermarketsV,transport:transportV,atms:atmsV,price:priceV },
-             type: 'post',
+             type: 'get',
              success: function(output) {
                 //alert(output);
                 updateMap(output);
