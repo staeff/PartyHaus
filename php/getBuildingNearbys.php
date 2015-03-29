@@ -6,7 +6,7 @@ class GetBuildingNearbys {
 	function __construct() {
 	}
 		
-	public function tryGet($lat, $long) {		
+	public function tryGet() {		
 		
 		include 'constants.php';
 		include 'opendb.php';

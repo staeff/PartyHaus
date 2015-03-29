@@ -18,6 +18,7 @@
 	include 'constants.php';
 	include 'getBuildingNearbys.php';
 	include 'getAppartments.php';
+	include 'getImmoScout.php';
 
 
 	$jsonObj = new StdClass();
@@ -25,16 +26,21 @@
 	$jsonObj->result = ERROR;
 	
 	switch($action) {	
+		case GET_IMMO_SCOUT:	
+			$getImmoScout = new GetImmoScout();
+			$response = $getImmoScout->tryGet();
+			break;
 		case GET_BUILDING_NEARBYS:
-			/*$gbNearbys = new GetBuildingNearbys();
-			$response = $gbNearbys->tryGet($lat,$long);*/
-			$gbNearbys = new GetAppartments();
-			$response = $gbNearbys->tryGet($lat,$long);
+			$gbNearbys = new GetBuildingNearbys();
+			$response = $gbNearbys->tryGet();
 			break;		
+		case GET_APPARTMENTS:
+			$getAppartments = new GetAppartments();
+			$response = $getAppartments->tryGet($lat,$long);
 		default:
 			break;
 	}
 	
-	echo $response;
+	echo json_encode($response);
 	
 ?>
