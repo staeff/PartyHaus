@@ -51,7 +51,7 @@ class GetAppartments {
 			while($myrow = pg_fetch_assoc($result)) {
 
 				$images = explode('|', $myrow['images']);
-				$coordinates = str_replace('(','',str_replace(')','',explode('|',$myrow['coordinates'])));
+				$coordinates = explode(',',str_replace('(','',str_replace(')','',$myrow['coordinates'])));
 				$object[] = array(
 					'type' => 'Feature',
 					'properties' => array(
