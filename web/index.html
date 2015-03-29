@@ -40,7 +40,7 @@
     .propertyImage{
     flex: 1;
     width: 158px;
-    margin: 10px;
+    margin: 15px;
     }
     #exposeDetails{
     flex: 2;
@@ -89,6 +89,18 @@
     td{
     width: 100px;
     text-align: center;    
+    }
+    #goToListing{
+    font-size: 16px;
+    width: 66%;
+    height: 40px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: none;
+    background-color: rgb(0,0,0);
+    color: white;
+    font-family: 'Fredoka One', cursive;
+    display: inline;
     }
     #criteriaModal{
     margin: 0px;
@@ -141,6 +153,15 @@
     .indexNum p{
     display: inline;   
     }
+    .eye{
+    width: 18px;
+    margin: 3px 3px 0px;
+    }
+    .eyeArea{
+    width: 20px;
+    height: 20px;
+    display: inline;
+    }
     #startSearch{
     font-size: 16px;
     width: 66%;
@@ -167,9 +188,9 @@
     <div id="map"></div>
         <div id="exposeModal">
             <div id="exposePics">
-                <img src="http://pictureis24-a.akamaihd.net/pic/orig02/N/358/623/61/358623061-0.jpg/ORIG/resize/210x210%3E/format/jpg?2017514715" class="propertyImage">
-                <img src="http://pictureis24-a.akamaihd.net/pic/orig02/N/358/623/65/358623065-0.jpg/ORIG/resize/210x210%3E/format/jpg?3078975257" class="propertyImage">
-                <img src="http://pictureis24-a.akamaihd.net/pic/orig03/N/358/623/62/358623062-0.jpg/ORIG/resize/210x210%3E/format/jpg?1196573298" class="propertyImage">
+                <img src="http://pictureis24-a.akamaihd.net/pic/orig02/N/358/623/61/358623061-0.jpg/ORIG/resize/210x210%3E/format/jpg?2017514715" style="width: 130;" class="propertyImage">
+                <img src="http://pictureis24-a.akamaihd.net/pic/orig02/N/358/623/65/358623065-0.jpg/ORIG/resize/210x210%3E/format/jpg?3078975257" style="width: 130;" class="propertyImage">
+                <img src="http://pictureis24-a.akamaihd.net/pic/orig03/N/358/623/62/358623062-0.jpg/ORIG/resize/210x210%3E/format/jpg?1196573298" style="width: 130;" class="propertyImage">
             </div>
             <div id="exposeDetails">
                 <div id="exposeRow1">
@@ -248,22 +269,23 @@
                           </tr>
                         </table>
                     </div>
+                    <button id="goToListing">View Full Listing</button>
             </div>
 
         </div>
         <div id="criteriaModal">
         <h2 id="criteriaTitle">Party Haus Checklist:</h2>
         <ul id="sortable">
-            <li id="clubs" class="ui-state-default"><div class="indexNum"></div>Night Clubs Area</li>
-            <li id="bars" class="ui-state-default"><div class="indexNum"></div>Bars Area</li>
-            <li id="liquor" class="ui-state-default"><div class="indexNum"></div>Distance to Spatis</li>
+            <li id="clubs" class="ui-state-default"><div class="indexNum"></div>Night Clubs Area<div class="eyeArea"><img src="images/eye.svg" class="eye"></div></li>
+            <li id="bars" class="ui-state-default"><div class="indexNum"></div>Bars Area<div class="eyeArea"><img src="images/eye.svg" class="eye"></div></li>
+            <li id="liquor" class="ui-state-default"><div class="indexNum"></div>Nearby Spatis<div class="eyeArea"><img src="images/eye.svg" class="eye"></div></li>
             <li id="balcony" class="ui-state-default"><div class="indexNum"></div>Balcony</li>
             <li id="second_toilet" class="ui-state-default"><div class="indexNum"></div>2nd Toiletted</li>
-            <li id="imbisses" class="ui-state-default"><div class="indexNum"></div>Imbiss</li>
-            <li id="supermarkets" class="ui-state-default"><div class="indexNum"></div>Supermarkets</li>
-            <li id="transport" class="ui-state-default"><div class="indexNum"></div>Distance to public transport</li>
-            <li id="atms" class="ui-state-default"><div class="indexNum"></div>Atm</li>
-            <li id="price" class="ui-state-default"><div class="indexNum"></div>Price x m2</li>
+            <li id="imbisses" class="ui-state-default"><div class="indexNum"></div>Imbiss<div class="eyeArea"><img src="images/eye.svg" class="eye"></div></li>
+            <li id="supermarkets" class="ui-state-default"><div class="indexNum"></div>Supermarkets<div class="eyeArea"><img src="images/eye.svg" class="eye"></div></li>
+            <li id="transport" class="ui-state-default"><div class="indexNum"></div>Nearby transport<div class="eyeArea"><img src="images/eye.svg" class="eye"></div></li>
+            <li id="atms" class="ui-state-default"><div class="indexNum"></div>Atm<div class="eyeArea"><img src="images/eye.svg" class="eye"></div></li>
+            <li id="price" class="ui-state-default"><div class="indexNum">Price x m2</li>
         </ul>
         <button id="startSearch">Explore Wohnungen</button>
     </div>
