@@ -19,6 +19,56 @@
     height: 100%; 
     position: relative;    
     }
+    #exposeModal{
+    margin: 0px;
+    width: 40%; 
+    position: absolute; 
+    top: 10px; 
+    left: 10px; 
+    z-index: 99;
+    background-color: rgb(252,231,253); 
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    }
+    #exposePics{
+    flex: 1;
+    }
+    .propertyImage{
+    flex: 1;
+    width: 158px;
+    margin: 10px;
+    }
+    #exposeDetails{
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+    }
+    #exposeRow1{
+    display: flex;
+    flex-direction: row;
+    }
+    #exposeRow1 > *{
+    flex: 1;   
+    }
+    #exposeRating{
+    width: 160px;
+    height: 110px;
+    display: inline;
+    }
+    #exposeAddress{
+    margin: none;
+    height: 150px;
+    flex: 1;
+    }
+    #exposeStats{
+    flex: 2;
+    }
+    .statsCells{
+    border: solid 2px black;
+    height: 100px;
+    }
     #criteriaModal{
     margin: 0px;
     width: 20%; 
@@ -26,7 +76,7 @@
     top: 10px; 
     right: 10px; 
     z-index: 99;
-    background-color: pink;
+    background-color: rgb(252,231,253);
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -44,7 +94,7 @@
     flex: 1;
     }
     .ui-state-default{
-    background-color: pink;
+    background-color: rgb(252,231,253);
     border: solid white 1px;
     border-radius: 2px;
     box-shadow: none;
@@ -52,7 +102,7 @@
     margin-bottom: 2px;
     }
     .ui-state-placeholder{
-    background-color: pink;
+    background-color: rgb(252,231,253);
     height: 1.5em; 
     line-height: 1.2em;
     }
@@ -74,7 +124,7 @@
     margin-bottom: 10px;
     border-radius: 5px;
     border: none;
-    background-color: red;
+    background-color: rgb(234,37,45);
     flex: 1;
     }
   </style>
@@ -90,7 +140,88 @@
     <!-- div-Element für die Karte einrichten -->
     <div id="map"></div>
         <div id="exposeModal">
-            
+            <div id="exposePics">
+                <img src="http://pictureis24-a.akamaihd.net/pic/orig02/N/358/623/61/358623061-0.jpg/ORIG/resize/210x210%3E/format/jpg?2017514715" class="propertyImage">
+                <img src="http://pictureis24-a.akamaihd.net/pic/orig02/N/358/623/65/358623065-0.jpg/ORIG/resize/210x210%3E/format/jpg?3078975257" class="propertyImage">
+                <img src="http://pictureis24-a.akamaihd.net/pic/orig03/N/358/623/62/358623062-0.jpg/ORIG/resize/210x210%3E/format/jpg?1196573298" class="propertyImage">
+            </div>
+            <div id="exposeDetails">
+                <div id="exposeRow1">
+                    <svg id="exposeRating">
+                    <circle cx="70" cy="55" r="50" style="fill: white; stroke: rgb(234,37,45); stroke-width: 5px;"></circle>
+                    </svg>
+                    <p id="exposeAddress">Hasenheide 88, 10967 Berlin, Neukölln (Neukölln)</p>
+                </div>
+                <div id="exposeStats">
+                        <table id="statsTable">
+                          <tr>
+                            <td class="statsCells">
+                                <table>
+                                    <tr>
+                                        <td id="coldRent">000</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Cold Rent</td>
+                                    </tr>
+                                </table>  
+                            </td>
+                            <td class="statsCells">
+                                <table>
+                                    <tr>
+                                        <td id="warmRent">000</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Warm Rent</td>
+                                    </tr>
+                                </table>    
+                            </td>
+                            <td class="statsCells">
+                                <table>
+                                    <tr>
+                                        <td id="space">000</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Space (sq. m)</td>
+                                    </tr>
+                                </table>  
+                            </td>  
+                          </tr>
+                          <tr>
+                            <td class="statsCells">
+                                <table>
+                                    <tr>
+                                        <td id="buildingFloor">000</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Building Floor</td>
+                                    </tr>
+                                </table>   
+                            </td>
+                            <td class="statsCells">
+                                <table>
+                                    <tr>
+                                        <td id="numRooms">000</td>
+                                    </tr>
+                                    <tr>
+                                        <td># Rooms</td>
+                                    </tr>
+                                </table>   
+                            </td>
+                            <td class="statsCells">
+                                <table>
+                                    <tr>
+                                        <td id="numToilets">000</td>
+                                    </tr>
+                                    <tr>
+                                        <td># Toilets</td>
+                                    </tr>
+                                </table>   
+                            </td>
+                          </tr>
+                        </table>
+                    </div>
+            </div>
+
         </div>
         <div id="criteriaModal">
         <h2 id="criteriaTitle">Party Haus Checklist:</h2>
