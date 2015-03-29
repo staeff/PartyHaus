@@ -67,6 +67,7 @@ class GetAppartments {
 						'total_rent' => $myrow['total_rent'],
 						'total_size' => $myrow['size'],
 						'floor' => $myrow['floor'],
+						'score' => $myrow['score'],
 						'rooms' => $myrow['rooms'],
 						'second_toilet' => $myrow['second_toilet'],
 						'balcony' => $myrow['balcony'],
@@ -79,7 +80,7 @@ class GetAppartments {
 						),
 					'geometry' => array(
 						'type' => 'Point',
-						'coordinates' => '['.$coordinates[0].', '.$coordinates[1].']
+						'coordinates' => '['.$coordinates[0].', '.$coordinates[1].']'
 						)
 					);
 				$id = $myrow['id'];
