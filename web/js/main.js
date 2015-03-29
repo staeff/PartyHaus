@@ -1,5 +1,7 @@
 $( document ).ready(function() {
-
+        
+        var markers = new L.FeatureGroup();
+        
         $("#exposeModal").hide();
 
         $(function(){
@@ -95,10 +97,13 @@ $( document ).ready(function() {
         });
         for(var i=0; i < flats.length; i++){
             var renate = L.marker([flats[i].geometry.lat, flats[i].geometry.lon],{icon: flatIcon}).addTo(map);
+            markers.addLayer(renate);
         }
     }
 
     function getBoundsAndSendAjax(){
+
+        markers.clearLayers();
 
         var barsV = $("#bars p").text();
         var clubsV = $("#clubs p").text();
@@ -144,5 +149,9 @@ $( document ).ready(function() {
     //Calculate Boundary Coordinates After Zoom
     map.on('zoomend', function(event){
         getBoundsAndSendAjax();
+    });
+
+    $("#startSearch").click(function() {
+        $("#exposeModal").toggle();
     });
 });
