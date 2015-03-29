@@ -155,6 +155,10 @@ $( document ).ready(function() {
         getBoundsAndSendAjax();
     });
 
+    map.on('moveend', function(event){
+        getBoundsAndSendAjax();
+    });
+
     $("#startSearch").click(function() {
         $("#exposeModal").toggle();
     });
