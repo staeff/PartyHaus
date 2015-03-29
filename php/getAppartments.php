@@ -80,7 +80,7 @@ class GetAppartments {
 						),
 					'geometry' => array(
 						'type' => 'Point',
-						'coordinates' => '['.$coordinates[0].', '.$coordinates[1].']'
+						'coordinates' => '['.$coordinates[1].', '.$coordinates[0].']'
 						)
 					);
 				$id = $myrow['id'];
