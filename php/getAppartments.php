@@ -38,7 +38,7 @@ class GetAppartments {
 				 a.checked IS NOT NULL
 				 GROUP BY a.id) foo
 				ORDER BY score DESC
-				LIMIT 1;
+				LIMIT 20;
 
 				";
 			$result = pg_query($query);
@@ -80,7 +80,8 @@ class GetAppartments {
 						),
 					'geometry' => array(
 						'type' => 'Point',
-						'coordinates' => '['.$coordinates[1].', '.$coordinates[0].']'
+						'lat' => $coordinates[0],
+						'lon' => $coordinates[1]
 						)
 					);
 				$id = $myrow['id'];
