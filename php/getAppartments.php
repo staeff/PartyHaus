@@ -51,6 +51,7 @@ class GetAppartments {
 			while($myrow = pg_fetch_assoc($result)) {
 
 				$images = explode('|', $myrow['images']);
+				$coordinates = str_replace('(','',str_replace(')','',explode('|',$myrow['coordinates'])));
 				$object[] = array(
 					'type' => 'Feature',
 					'properties' => array(
@@ -78,7 +79,7 @@ class GetAppartments {
 						),
 					'geometry' => array(
 						'type' => 'Point',
-						'coordinates' => $myrow['coordinates']
+						'coordinates' => '['.$coordinates[0].', '.$coordinates[1].']
 						)
 					);
 				$id = $myrow['id'];
