@@ -1,6 +1,7 @@
 $( document ).ready(function() {
         
         var markers = new L.FeatureGroup();
+        var map;
         
         $("#exposeModal").hide();
 
@@ -45,7 +46,7 @@ $( document ).ready(function() {
             getBoundsAndSendAjax();
         })
         
-        var map = L.map('map').setView([52.52,13.384], 12); //Grundkartenelement erzeugen
+        map = L.map('map').setView([52.52,13.384], 12); //Grundkartenelement erzeugen
         // colored map
         L.tileLayer('http://a.tiles.mapbox.com/v3/examples.map-i87786ca/{z}/{x}/{y}.png').addTo(map);
         // grayscale map
@@ -96,9 +97,12 @@ $( document ).ready(function() {
             popupAnchor: [0, -28]
         });
         for(var i=0; i < flats.length; i++){
-            var renate = L.marker([flats[i].geometry.lat, flats[i].geometry.lon],{icon: flatIcon}).addTo(map);
+            var renate = L.marker([flats[i].geometry.lat, flats[i].geometry.lon],{icon: flatIcon});
             markers.addLayer(renate);
         }
+        console.log("sadas");
+
+        map.addLayer(markers);
     }
 
     function getBoundsAndSendAjax(){
