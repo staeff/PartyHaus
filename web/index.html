@@ -5,7 +5,7 @@ ifee
   <title>Find your party haus in Berlin!</title>
   <meta charset="utf-8" />
   <!-- CSS -->
-  <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
+  <link rel="stylesheet" href="//cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
   <link rel="stylesheet" href="/css/leaflet.label.css" />
   <style>
   body {
@@ -31,11 +31,13 @@ ifee
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
     }
     #criteriaTitle{
     flex: 1;    
     }
     #sortable{
+    width: 75%;
     list-style-type: none;
     margin: 0px 10px 10px; 
     padding: 0;
@@ -67,8 +69,12 @@ ifee
     display: inline;   
     }
     #startSearch{
-    width: 30px;
-    height: 10px;
+    font-size: 16px;
+    width: 66%;
+    height: 40px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: none;
     background-color: red;
     flex: 1;
     }
@@ -83,8 +89,11 @@ ifee
 <body>
     <!-- div-Element für die Karte einrichten -->
     <div id="map"></div>
+        <div id="exposeModal">
+            
+        </div>
         <div id="criteriaModal">
-        <h2 id="criteriaTitle">Title</h2>
+        <h2 id="criteriaTitle">Party Haus Checklist:</h2>
         <ul id="sortable">
             <li class="ui-state-default"><div class="indexNum"></div>First</li>
             <li class="ui-state-default"><div class="indexNum"></div>Second</li>
@@ -97,7 +106,7 @@ ifee
             <li class="ui-state-default"><div class="indexNum"></div>Ninth</li>
             <li class="ui-state-default"><div class="indexNum"></div>Tenth</li>
         </ul>
-        <button id="startSearch"></button>
+        <button id="startSearch">Explore Wohnungen</button>
     </div>
     <script>
         $(function(){
