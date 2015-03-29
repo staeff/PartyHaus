@@ -46,7 +46,7 @@ $( document ).ready(function() {
         L.tileLayer('http://a.tiles.mapbox.com/v3/examples.map-i87786ca/{z}/{x}/{y}.png').addTo(map);
         // grayscale map
         // L.tileLayer('http://a.tiles.mapbox.com/v3/examples.map-20v6611k/{z}/{x}/{y}.png').addTo(map);
-        var renate = L.marker([52.49744, 13.46531]).addTo(map);
+        /*var renate = L.marker([52.49744, 13.46531]).addTo(map);
         renate.bindPopup("<b>Zur wilde Renate</b><br><a href='http://www.cluelist.com/de-de/berlin-salon_zur_wilden_renate'>Go to article about Zur Wilden Renate</a>.").openPopup();
 
         var sisyphos = L.marker([52.493197, 13.491805]).addTo(map);
@@ -69,7 +69,7 @@ $( document ).ready(function() {
 
         var m = L.marker([52.453102, 13.320439], {draggable:true}).bindLabel('A sweet static label!', { noHide: true })
         .addTo(map)
-        .showLabel();
+        .showLabel();*/
 
     // standalone popup
     //var popup = L.popup()
@@ -79,6 +79,21 @@ $( document ).ready(function() {
 
     function getNumber(text){
         return text.substr(0, text.length -2);
+    }
+
+    function updateMap(data){
+
+        var flats = JSON.parse(data);
+        
+        var flatIcon = L.icon({
+            iconUrl: 'images/party_marker.svg',
+            iconSize: [32, 37],
+            iconAnchor: [16, 37],
+            popupAnchor: [0, -28]
+        });
+        for(var i=0; i < flats.length; i++){
+            var renate = L.marker([flats[i].geometry.lat, flats[i].geometry.lon],{icon: flatIcon}).addTo(map);
+        }
     }
 
     function getBoundsAndSendAjax(){
@@ -118,7 +133,8 @@ $( document ).ready(function() {
                 imbisses:imbissesV,supermarkets:supermarketsV,transport:transportV,atms:atmsV,price:priceV },
              type: 'post',
              success: function(output) {
-                alert(output);
+                //alert(output);
+                updateMap(output);
              }
         });
     }
