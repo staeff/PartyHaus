@@ -53,7 +53,7 @@ class GetAppartments {
 				$images = explode('|', $myrow['images']);
 				$object[] = array(
 					'type' => 'Feature',
-					'prperties' => array(
+					'properties' => array(
 						'id' => $myrow['id'],
 						'address' => array(
 							'houseNumber' => $myrow['number'],
