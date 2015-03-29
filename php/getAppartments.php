@@ -38,7 +38,7 @@ class GetAppartments {
 				 a.checked IS NOT NULL
 				 GROUP BY a.id) foo
 				ORDER BY score DESC
-				LIMIT 20;
+				LIMIT 1;
 
 				";
 			$result = pg_query($query);
@@ -51,9 +51,10 @@ class GetAppartments {
 			while($myrow = pg_fetch_assoc($result)) {
 
 				$images = explode('|', $myrow['images']);
+				$coordinates = explode(',',str_replace('(','',str_replace(')','',$myrow['coordinates'])));
 				$object[] = array(
 					'type' => 'Feature',
-					'prperties' => array(
+					'properties' => array(
 						'id' => $myrow['id'],
 						'address' => array(
 							'houseNumber' => $myrow['number'],
@@ -66,6 +67,7 @@ class GetAppartments {
 						'total_rent' => $myrow['total_rent'],
 						'total_size' => $myrow['size'],
 						'floor' => $myrow['floor'],
+						'score' => $myrow['score'],
 						'rooms' => $myrow['rooms'],
 						'second_toilet' => $myrow['second_toilet'],
 						'balcony' => $myrow['balcony'],
@@ -78,7 +80,7 @@ class GetAppartments {
 						),
 					'geometry' => array(
 						'type' => 'Point',
-						'coordinates' => $myrow['coordinates']
+						'coordinates' => '['.$coordinates[1].', '.$coordinates[0].']'
 						)
 					);
 				$id = $myrow['id'];
