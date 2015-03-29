@@ -6,9 +6,9 @@ class GetAppartments {
 	function __construct() {
 	}
 		
-	public function tryGet($lat, $long) {		
+	public function tryGet($north, $west, $south, $east, $bars,$liquor,$clubs,$atms,$supermarkets, $imbisses, $transport, $second_toilet, $balcony, $price) {		
 		
-		include 'constants.php';
+		//include 'constants.php';
 		include 'opendb.php';
 
 		$object = array();
@@ -17,14 +17,14 @@ class GetAppartments {
 
 
 
-		    $query = "SELECT *, 1 * (CASE WHEN atms >= 1 THEN 1 ELSE 0.93 END) * (CASE WHEN bars >= 1 THEN 1 ELSE 0.8 END) 
-				* (CASE WHEN night_clubs >= 1 THEN 1 ELSE 0.8 END) * (CASE WHEN liquor_stores >= 1 THEN 1 ELSE 0.8 END)
-				* (CASE WHEN supermarkets >= 1 THEN 1 ELSE 0.93 END) * (CASE WHEN imbisses >= 1 THEN 1 ELSE 0.93 END)
-				* (CASE WHEN transport >= 1 THEN 1 ELSE 0.85 END) * (CASE WHEN second_toilet THEN 1 ELSE 0.95 END)
-				* (CASE WHEN balcony THEN 1 ELSE 0.9 END)
-				* (CASE WHEN price_per_m2 >= 20 THEN 0 WHEN price_per_m2 <= 1 THEN (20/price_per_m2)-1 ELSE 0.95 END) AS score
+		    $query = "SELECT *, 1 * (CASE WHEN atms >= 1 THEN 1 ELSE 1-(0.2/$atms) END) * (CASE WHEN bars >= 1 THEN 1 ELSE 1-(0.2/$bars) END)
+				* (CASE WHEN night_clubs >= 1 THEN 1 ELSE 1-(0.2/$clubs) END) * (CASE WHEN liquor_stores >= 1 THEN 1 ELSE 1-(0.2/$liquor) END)
+				* (CASE WHEN supermarkets >= 1 THEN 1 ELSE 1-(0.2/$supermarkets) END) * (CASE WHEN imbisses >= 1 THEN 1 ELSE 1-(0.2/$imbisses) END)
+				* (CASE WHEN transport >= 1 THEN 1 ELSE 1-(0.2/$transport) END) * (CASE WHEN second_toilet THEN 1 ELSE 1-(0.2/$second_toilet) END)
+				* (CASE WHEN balcony THEN 1 ELSE 1-(0.2/$balcony) END)
+				* (CASE WHEN price_per_m2 >= 20 THEN 0 WHEN price_per_m2 <= 10 THEN 1 ELSE ((20/(price_per_m2+0.01))-1)*(1-(0.2/$liquor)) END) AS score
 				FROM (
-				 SELECT a.id, a.coordinates, a.address, a.balcony, a.build_in, a.size, a.total_rent, a.second_toilet, a.checked, a.total_rent/a.size AS price_per_m2, a.number, a.street, a.postcode, a.quarter, a.images, a.title, a.rooms, a.floor, a.base_rent,
+				 SELECT a.id, a.coordinates, a.address, a.balcony, a.build_in, a.size, a.total_rent, a.second_toilet, a.checked, a.total_rent/(a.size+0.001) AS price_per_m2, a.number, a.street, a.postcode, a.quarter, a.images, a.title, a.rooms, a.floor, a.base_rent,
 				 count(case when t.name='atm' then 1 end) AS atms, count(case when t.name='bar' then 1 end) AS bars, 
 				 count(case when t.name='night_club' then 1 end) AS night_clubs, count(case when t.name='liquor_store' then 1 end) AS liquor_stores
 				 , count(case when t.name='grocery_or_supermarket' then 1 end) AS supermarkets, count(case when t.name='meal_takeaway' then 1 end) AS imbisses
@@ -34,7 +34,7 @@ class GetAppartments {
 				 LEFT JOIN poi p ON (p.id = ap.poi_id)
 				 LEFT JOIN poi_type pt ON (p.id = pt.poi_id)
 				 LEFT JOIN type t ON (pt.type_id = t.id)
-				 WHERE --'(52.5008987,13.4265401) , (52.5036417,13.4369256) , (52.4974498,13.4583827) , (52.4938703,13.4346076)'::polygon @> a.coordinates AND 
+				 WHERE '($north,$west) , ($north,$east) , ($south,$east) , ($south,$west)'::polygon @> a.coordinates AND 
 				 a.checked IS NOT NULL
 				 GROUP BY a.id) foo
 				ORDER BY score DESC
@@ -83,14 +83,14 @@ class GetAppartments {
 					);
 				$id = $myrow['id'];
 				$number = $myrow['number'];
-				$app_coordinates = split(',', str_replace('(','',str_replace(')','',$myrow['coordinates'])));
+				$app_coordinates = explode(',', str_replace('(','',str_replace(')','',$myrow['coordinates'])));
 				$lat = $app_coordinates[0];
 				$long = $app_coordinates[1];
 				}
 			
 			include 'closedb.php';
 
-			$this->jsonObj = json_encode($object);
+			$this->jsonObj = $object;
 
 		} catch (Exception $e) {
 			$this->jsonObj->result = $e->getMessage();

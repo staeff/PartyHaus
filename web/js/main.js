@@ -4,15 +4,21 @@ $( document ).ready(function() {
             var criteriaItem = $('.ui-state-default'),
                 unorderedList = $('#sortable');
             
+            var count = 0;
             unorderedList.sortable({
                 placeholder: "ui-state-placeholder",
                 helper: 'clone', 
                 update: function (e, ui){
                     var $lis = $(this).children('li');
                     $lis.each(function() {
-                    var $li = $(this);
-                    var newVal = $(this).index() + 1;
-                    $(this).children('.indexNum').html('<p>'+newVal+'. </p>');
+                        var $li = $(this);
+                        var newVal = $(this).index() + 1;
+                        $(this).children('.indexNum').html('<p>'+newVal+'. </p>');
+                        count++;
+                        if(count == 9){
+                            count = 0;
+                            getBoundsAndSendAjax();
+                        }
                     });
                 }
             });
@@ -31,6 +37,8 @@ $( document ).ready(function() {
             criteriaItem.mouseleave(function(){
                     $(this).css('box-shadow', 'none')
             })
+
+            getBoundsAndSendAjax();
         })
         
         var map = L.map('map').setView([52.52,13.384], 12); //Grundkartenelement erzeugen
@@ -69,15 +77,54 @@ $( document ).ready(function() {
     //.setContent("Zur wilde Renate")
     //.openOn(map);
 
-    //Calculate Boundary Coordinates After Zoom
-    map.on('zoomend', function(event)
-        {
-            var bounds = map.getBounds();
-            console.log(bounds);
+    function getNumber(text){
+        return text.substr(0, text.length -2);
+    }
+
+    function getBoundsAndSendAjax(){
+
+        var barsV = $("#bars p").text();
+        var clubsV = $("#clubs p").text();
+        var liquorV = $("#liquor p").text();
+        var balconyV = $("#balcony p").text();
+        var second_toiletV = $("#second_toilet p").text();
+        var imbissesV = $("#imbisses p").text();
+        var supermarketsV = $("#supermarkets p").text();
+        var transportV = $("#transport p").text();
+        var atmsV = $("#atms p").text();
+        var priceV = $("#price p").text();
+
+        barsV = getNumber(barsV);
+        clubsV = getNumber(clubsV);
+        liquorV = getNumber(liquorV);
+        balconyV = getNumber(balconyV);
+        second_toiletV = getNumber(second_toiletV);
+        imbissesV = getNumber(imbissesV);
+        supermarketsV = getNumber(supermarketsV);
+        transportV = getNumber(transportV);
+        atmsV = getNumber(atmsV);
+        priceV = getNumber(priceV);
+
+        var bounds = map.getBounds();
+        
+        var eastV = bounds.getEast();
+        var westV = bounds.getWest();
+        var northV = bounds.getNorth();
+        var southV = bounds.getSouth();
+
+        $.ajax({ url: '../php/main.php',
+             data: {action: 'getAppartments', east: eastV, west: westV, north: northV, south: southV,
+                bars:barsV,clubs:clubsV,liquor:liquorV,balcony:balconyV,second_toilet:second_toiletV,
+                imbisses:imbissesV,supermarkets:supermarketsV,transport:transportV,atms:atmsV,price:priceV },
+             type: 'post',
+             success: function(output) {
+                alert(output);
+             }
         });
+    }
 
-
-
-
-
+    //Calculate Boundary Coordinates After Zoom
+    map.on('zoomend', function(event){
+        getBoundsAndSendAjax();
+    });
 });

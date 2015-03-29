@@ -36,7 +36,7 @@
 			break;		
 		case GET_APPARTMENTS:
 			$getAppartments = new GetAppartments();
-			$response = $getAppartments->tryGet($lat,$long);
+			$response = $getAppartments->tryGet($north=52.52,$east=13.45,$south=52.40,$west=13.40, $bars=2, $liquor=3, $clubs=1,$atms=7,$supermarkets=8, $imbisses=10, $transport=4, $second_toilet=10, $balcony=5, $price=6);
 		default:
 			break;
 	}
