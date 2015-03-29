@@ -8,7 +8,7 @@ class GetAppartments {
 		
 	public function tryGet($north, $west, $south, $east, $bars,$liquor,$clubs,$atms,$supermarkets, $imbisses, $transport, $second_toilet, $balcony, $price) {		
 		
-		include 'constants.php';
+		//include 'constants.php';
 		include 'opendb.php';
 
 		$object = array();
