@@ -1,5 +1,6 @@
 <?php
 define("GET_BUILDING_NEARBYS", "getBuildingNearbys");
+define("ERROR", "error");
 
 
 //Google Places Types

@@ -105,6 +105,6 @@ for($k = 0; $k < count($exposeIds); $k++){
 	}
 }
 
-//print_r($exposesArray);
+print_r($exposesArray);
 
 ?>

@@ -1,4 +1,8 @@
 <?php
-$conn = mysql_connect($dbhost, $dbuser, $dbpass) or die ('Error connecting to mysql');
-$selected = mysql_select_db($dbname,$conn);
+
+include 'conf.php';
+
+$conn_string = "host=$dbhost port=$dbport dbname=$dbname user=$dbuser password=$dbpass";
+$dbconn = pg_connect($conn_string);
+
 ?>

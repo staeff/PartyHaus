@@ -17,6 +17,7 @@
 	
 	include 'constants.php';
 	include 'getBuildingNearbys.php';
+	include 'getAppartments.php';
 
 
 	$jsonObj = new StdClass();
@@ -25,7 +26,9 @@
 	
 	switch($action) {	
 		case GET_BUILDING_NEARBYS:
-			$gbNearbys = new GetBuildingNearbys();
+			/*$gbNearbys = new GetBuildingNearbys();
+			$response = $gbNearbys->tryGet($lat,$long);*/
+			$gbNearbys = new GetAppartments();
 			$response = $gbNearbys->tryGet($lat,$long);
 			break;		
 		default:
