@@ -1,57 +1,48 @@
-$( document ).ready(function() {
-        
-        var markers = new L.FeatureGroup();
-        var map;
-        
-        $("#exposeModal").hide();
-
-        $(function(){
-            var criteriaItem = $('.ui-state-default'),
-                unorderedList = $('#sortable');
-            
-            var count = 0;
-            unorderedList.sortable({
-                placeholder: "ui-state-placeholder",
-                helper: 'clone', 
-                update: function (e, ui){
-                    var $lis = $(this).children('li');
-                    $lis.each(function() {
-                        var $li = $(this);
-                        var newVal = $(this).index() + 1;
-                        $(this).children('.indexNum').html('<p>'+newVal+'. </p>');
-                        count++;
-                        if(count == 9){
-                            count = 0;
-                            getBoundsAndSendAjax();
-                        }
-                    });
-                }
-            });
-            
-            //insert list item index into html
-            var $lis = unorderedList.children('li');
-            $.each($('li div'), function(index, value){
-                var numVal = $(this).html('<p>'+(index+1)+'. </p>');
-            });
-            
-            unorderedList.disableSelection();    
-            
-            criteriaItem.mouseenter(function(){
-                   $(this).css('box-shadow', '0 0 1em grey');
-            })
-            criteriaItem.mouseleave(function(){
-                    $(this).css('box-shadow', 'none')
-            })
-
-            getBoundsAndSendAjax();
-        })
-        
-        map = L.map('map').setView([52.52,13.384], 12); //Grundkartenelement erzeugen
-        // colored map
-        L.tileLayer('http://a.tiles.mapbox.com/v3/examples.map-i87786ca/{z}/{x}/{y}.png').addTo(map);
-        // grayscale map
-        // L.tileLayer('http://a.tiles.mapbox.com/v3/examples.map-20v6611k/{z}/{x}/{y}.png').addTo(map);
-        /*var renate = L.marker([52.49744, 13.46531]).addTo(map);
+$(document).ready(function() {
+    var markers = new L.FeatureGroup();
+    var map;
+    $("#exposeModal").hide();
+    $(function() {
+        var criteriaItem = $('.ui-state-default'),
+            unorderedList = $('#sortable');
+        var count = 0;
+        unorderedList.sortable({
+            placeholder: "ui-state-placeholder",
+            helper: 'clone',
+            update: function(e, ui) {
+                var $lis = $(this).children('li');
+                $lis.each(function() {
+                    var $li = $(this);
+                    var newVal = $(this).index() + 1;
+                    $(this).children('.indexNum').html('<p>' + newVal + '. </p>');
+                    count++;
+                    if(count == 9) {
+                        count = 0;
+                        getBoundsAndSendAjax();
+                    }
+                });
+            }
+        });
+        //insert list item index into html
+        var $lis = unorderedList.children('li');
+        $.each($('li div'), function(index, value) {
+            var numVal = $(this).html('<p>' + (index + 1) + '. </p>');
+        });
+        unorderedList.disableSelection();
+        criteriaItem.mouseenter(function() {
+            $(this).css('box-shadow', '0 0 1em grey');
+        });
+        criteriaItem.mouseleave(function() {
+            $(this).css('box-shadow', 'none');
+        });
+        getBoundsAndSendAjax();
+    });
+    map = L.map('map').setView([52.52, 13.384], 12); //Grundkartenelement erzeugen
+    // colored map
+    L.tileLayer('http://a.tiles.mapbox.com/v3/examples.map-i87786ca/{z}/{x}/{y}.png').addTo(map);
+    // grayscale map
+    // L.tileLayer('http://a.tiles.mapbox.com/v3/examples.map-20v6611k/{z}/{x}/{y}.png').addTo(map);
+    /*var renate = L.marker([52.49744, 13.46531]).addTo(map);
         renate.bindPopup("<b>Zur wilde Renate</b><br><a href='http://www.cluelist.com/de-de/berlin-salon_zur_wilden_renate'>Go to article about Zur Wilden Renate</a>.").openPopup();
 
         var sisyphos = L.marker([52.493197, 13.491805]).addTo(map);
@@ -75,40 +66,36 @@ $( document ).ready(function() {
         var m = L.marker([52.453102, 13.320439], {draggable:true}).bindLabel('A sweet static label!', { noHide: true })
         .addTo(map)
         .showLabel();*/
-
     // standalone popup
     //var popup = L.popup()
     //.setLatLng([52.49744, 13.46531])
     //.setContent("Zur wilde Renate")
     //.openOn(map);
 
-    function getNumber(text){
-        return text.substr(0, text.length -2);
+    function getNumber(text) {
+        return text.substr(0, text.length - 2);
     }
 
-    function updateMap(data){
-
+    function updateMap(data) {
         var flats = JSON.parse(data);
-        
         var flatIcon = L.icon({
             iconUrl: 'images/party_marker.svg',
             iconSize: [32, 37],
             iconAnchor: [16, 37],
             popupAnchor: [0, -28]
         });
-        for(var i=0; i < flats.length; i++){
-            var renate = L.marker([flats[i].geometry.lat, flats[i].geometry.lon],{icon: flatIcon});
+        for(var i = 0; i < flats.length; i++) {
+            var renate = L.marker([flats[i].geometry.lat, flats[i].geometry.lon], {
+                icon: flatIcon
+            });
             markers.addLayer(renate);
         }
         console.log("sadas");
-
         map.addLayer(markers);
     }
 
-    function getBoundsAndSendAjax(){
-
+    function getBoundsAndSendAjax() {
         markers.clearLayers();
-
         var barsV = $("#bars p").text();
         var clubsV = $("#clubs p").text();
         var liquorV = $("#liquor p").text();
@@ -119,7 +106,6 @@ $( document ).ready(function() {
         var transportV = $("#transport p").text();
         var atmsV = $("#atms p").text();
         var priceV = $("#price p").text();
-
         barsV = getNumber(barsV);
         clubsV = getNumber(clubsV);
         liquorV = getNumber(liquorV);
@@ -130,35 +116,44 @@ $( document ).ready(function() {
         transportV = getNumber(transportV);
         atmsV = getNumber(atmsV);
         priceV = getNumber(priceV);
-
         var bounds = map.getBounds();
-        
         var eastV = bounds.getEast();
         var westV = bounds.getWest();
         var northV = bounds.getNorth();
         var southV = bounds.getSouth();
-
-        $.ajax({ url: '../php/main.php',
-             data: {action: 'getAppartments', east: eastV, west: westV, north: northV, south: southV,
-                bars:barsV,clubs:clubsV,liquor:liquorV,balcony:balconyV,second_toilet:second_toiletV,
-                imbisses:imbissesV,supermarkets:supermarketsV,transport:transportV,atms:atmsV,price:priceV },
-             type: 'get',
-             success: function(output) {
+        $.ajax({
+            url: 'https://pancake-global.codio.io:9500/php/main.php',
+            data: {
+                action: 'getAppartments',
+                east: eastV,
+                west: westV,
+                north: northV,
+                south: southV,
+                bars: barsV,
+                clubs: clubsV,
+                liquor: liquorV,
+                balcony: balconyV,
+                second_toilet: second_toiletV,
+                imbisses: imbissesV,
+                supermarkets: supermarketsV,
+                transport: transportV,
+                atms: atmsV,
+                price: priceV
+            },
+            type: 'get',
+            success: function(output) {
                 //alert(output);
                 updateMap(output);
-             }
+            }
         });
     }
-
     //Calculate Boundary Coordinates After Zoom
-    map.on('zoomend', function(event){
+    map.on('zoomend', function(event) {
         getBoundsAndSendAjax();
     });
-
-    map.on('moveend', function(event){
+    map.on('moveend', function(event) {
         getBoundsAndSendAjax();
     });
-
     $("#startSearch").click(function() {
         $("#exposeModal").toggle();
     });
