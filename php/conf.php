@@ -3,10 +3,10 @@
 
 //CONEXION A LA BASE DE DATOS ENTORNO DEVELOP
 
-$dbhost = 'ec2-107-21-102-69.compute-1.amazonaws.com';
-$dbuser = 'hkukxvotdfypbz';
-$dbpass = 'Q4sc2rm-vdgA5AABMNHhwgdZDz';
-$dbname = 'd41nm01n1ei7p0';
+$dbhost = 'localhost';
+$dbuser = 'codio';
+$dbpass = '';
+$dbname = 'partyhaus';
 $dbport = '5432';
 
 //CONEXION A LA BASE DE DATOS ENTORNO DESARROLLO UBUNTU

@@ -56,12 +56,10 @@ class GetAppartments {
 					'type' => 'Feature',
 					'properties' => array(
 						'id' => $myrow['id'],
-						'address' => array(
-							'houseNumber' => $myrow['number'],
-							'postcode' => $myrow['postcode'],
-							'quarter' => $myrow['quarter'],
-							'street' =>$myrow['street']
-							),
+						'houseNumber' => $myrow['number'],
+						'postcode' => $myrow['postcode'],
+						'quarter' => $myrow['quarter'],
+						'street' =>$myrow['street'],
 						'title' => $myrow['title'],
 						'base_rent' => $myrow['base_rent'],
 						'total_rent' => $myrow['total_rent'],
@@ -71,12 +69,7 @@ class GetAppartments {
 						'rooms' => $myrow['rooms'],
 						'second_toilet' => $myrow['second_toilet'],
 						'balcony' => $myrow['balcony'],
-						'images' => array(
-							'img1' => isset($images[0])?$images[0]:'',
-							'img2' => isset($images[1])?$images[1]:'',
-							'img3' => isset($images[2])?$images[2]:'',
-							'img4' => isset($images[3])?$images[3]:'',
-							)
+						'images' => $images
 						),
 					'geometry' => array(
 						'type' => 'Point',

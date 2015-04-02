@@ -1,7 +1,7 @@
 $(document).ready(function() {
     var markers = new L.FeatureGroup();
     var map;
-    $("#exposeModal").hide();
+    //$("#exposeModal").hide();
     $(function() {
         var criteriaItem = $('.ui-state-default'),
             unorderedList = $('#sortable');
@@ -75,6 +75,59 @@ $(document).ready(function() {
     function getNumber(text) {
         return text.substr(0, text.length - 2);
     }
+    
+    function showFlat(e) {
+        $("#exposeRating text").text(this.options.score);
+        $("#coldRent").text(this.options.base_rent);
+        $("#warmRent").text(this.options.total_rent);
+        $("#numToilets").text(this.options.second_toilet);
+        $("#numRooms").text(this.options.rooms);
+        $("#buildingFloor").text(this.options.floor);
+        $("#space").text(this.options.total_size);
+        $("#number").text(this.options.houseNumber);                                                               
+        $("#plz").text(this.options.postcode);                                                               
+        $("#quarter").text(this.options.quarter);
+        $("#street").text(this.options.street);
+        var immoid = this.options.immoid;
+        $("#goToListing").click(function() {
+            window.location = "http://www.immobilienscout24.de/expose/" + immoid;
+        });
+        var images = this.options.images;
+        var $exposePics = $('#exposePics');
+        $exposePics.find('.propertyImage').remove();
+        if(images.lenght > 4) {
+            var lenght = persons_name;
+        } else {
+            var length = 4;
+        }
+        for(var i = 0; i < length; i++) {
+            $('<img class="propertyImage" />').attr({
+                src: images[i]
+             }).appendTo($exposePics);
+        }
+    }
+    
+
+
+    customMarker = L.Marker.extend({
+        options: {
+            immoid: "id",
+            title: "title",
+            base_rent: "base_rent",
+            total_rent: "total_rent",
+            total_size: "total_size",
+            floor: "floor",
+            score: "score",
+            rooms: "rooms",
+            second_toilet: "f",
+            balcony: "f",
+            houseNumber: "houseNumber",
+            street: "street",
+            quarter: "quarter",
+            postcode: "postcode",
+            images: "images"
+        }
+    });
 
     function updateMap(data) {
         var flats = JSON.parse(data);
@@ -85,12 +138,27 @@ $(document).ready(function() {
             popupAnchor: [0, -28]
         });
         for(var i = 0; i < flats.length; i++) {
-            var renate = L.marker([flats[i].geometry.lat, flats[i].geometry.lon], {
-                icon: flatIcon
-            });
-            markers.addLayer(renate);
+                var da_flat = flats[i];
+                var flat = new customMarker([da_flat.geometry.lat, da_flat.geometry.lon], {
+                icon: flatIcon,
+                immoid: da_flat.properties.id,
+                title: da_flat.properties.title,
+                base_rent: da_flat.properties.base_rent,
+                total_rent: da_flat.properties.total_rent,
+                total_size: da_flat.properties.total_size,
+                floor: da_flat.properties.floor,
+                score: da_flat.properties.score,
+                rooms: da_flat.properties.rooms,
+                second_toilet: da_flat.properties.second_toilet,
+                balcony: da_flat.properties.balcony,
+                images: da_flat.properties.images,
+                houseNumber: da_flat.properties.houseNumber,
+                street: da_flat.properties.street,
+                quarter: da_flat.properties.quarter,
+                postcode: da_flat.properties.postcode,
+            }).on('click', showFlat);
+            markers.addLayer(flat);
         }
-        console.log("sadas");
         map.addLayer(markers);
     }
 
