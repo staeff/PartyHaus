@@ -27,7 +27,7 @@
   }
   .propertyImage {
       flex: 1;
-      width: 158px;
+      width: 100px;
       margin: 15px;
   }
   #exposeDetails {
