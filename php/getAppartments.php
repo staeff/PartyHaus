@@ -38,7 +38,7 @@ class GetAppartments {
 				 a.checked IS NOT NULL
 				 GROUP BY a.id) foo
 				ORDER BY score DESC
-				LIMIT 50;
+				LIMIT 20;
 
 				";
 			$result = pg_query($query);
